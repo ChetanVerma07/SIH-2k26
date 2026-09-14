@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Viewer, Entity, PolygonGraphics, PointGraphics, LabelGraphics, CameraFlyTo, PolylineGraphics } from 'resium';
+import React, { useState } from 'react';
+import { Viewer, Entity, PolygonGraphics, PointGraphics, LabelGraphics, CameraFlyTo, PolylineGraphics, EllipseGraphics } from 'resium';
 import { Ion, Cartesian3, Color, Terrain } from 'cesium';
-import { MapPin, ArrowRight, Activity, ThermometerSun, Wind, Mountain, Navigation2 } from 'lucide-react';
+import { ArrowRight, Activity, ThermometerSun, Wind, Mountain, Navigation2 } from 'lucide-react';
 import { Card, SectionHeading, Badge, Button } from '../components/ui';
-import { MOCK_TERRAIN_SITES, LADAKH_CENTER, TerrainSite } from '../mock/terrainMock';
+import { MOCK_LADAKH_BOUNDARY, MOCK_TERRAIN_SITES, MOCK_THERMAL_ZONES, LADAKH_CENTER, TerrainSite } from '../mock/terrainMock';
 import { useAnalysis } from '../hooks/useAnalysisContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,20 +13,10 @@ if (CESIUM_TOKEN) {
   Ion.defaultAccessToken = CESIUM_TOKEN;
 }
 
-// Thermal Overlay Coordinates (Polygon)
-const MOCK_THERMAL_COLD = Cartesian3.fromDegreesArray([
-  77.55, 34.13, 77.60, 34.13, 77.60, 34.17, 77.55, 34.17
-]);
-const MOCK_THERMAL_MODERATE = Cartesian3.fromDegreesArray([
-  77.56, 34.14, 77.59, 34.14, 77.59, 34.16, 77.56, 34.16
-]);
-const MOCK_THERMAL_WARM = Cartesian3.fromDegreesArray([
-  77.575, 34.15, 77.585, 34.15, 77.585, 34.158, 77.575, 34.158
-]);
-
-const LADAKH_BOUNDARY = Cartesian3.fromDegreesArray([
-  77.55, 34.13, 77.60, 34.13, 77.60, 34.17, 77.55, 34.17, 77.55, 34.13
-]);
+const MOCK_THERMAL_COLD = Cartesian3.fromDegreesArray(MOCK_THERMAL_ZONES.cold);
+const MOCK_THERMAL_MODERATE = Cartesian3.fromDegreesArray(MOCK_THERMAL_ZONES.moderate);
+const MOCK_THERMAL_WARM = Cartesian3.fromDegreesArray(MOCK_THERMAL_ZONES.warm);
+const LADAKH_BOUNDARY = Cartesian3.fromDegreesArray(MOCK_LADAKH_BOUNDARY);
 
 export default function TerrainIntelligence() {
   const [selectedSite, setSelectedSite] = useState<TerrainSite | null>(
@@ -124,7 +114,7 @@ export default function TerrainIntelligence() {
             {/* Candidate Sites */}
             {MOCK_TERRAIN_SITES.map((site) => {
               const isSelected = selectedSite?.id === site.id;
-              const position = Cartesian3.fromDegrees(site.lng, site.lat, 0);
+              const position = Cartesian3.fromDegrees(site.lng, site.lat, site.elevation);
               const color = site.isRecommended ? Color.fromCssColorString('#10b981') : Color.fromCssColorString('#3b82f6');
               const labelText = site.isRecommended ? '★ AI RECOMMENDED SITE ★' : 'CANDIDATE SITE';
               const arrowText = isSelected ? `Orientation: ${site.recommendedOrientation}` : '';
@@ -150,6 +140,12 @@ export default function TerrainIntelligence() {
                     backgroundColor={Color.BLACK.withAlpha(0.7)}
                     pixelOffset={new Cartesian3(0, -30, 0) as any}
                   />
+                  {isSelected && (
+                    <>
+                      <EllipseGraphics semiMajorAxis={650} semiMinorAxis={650} material={Color.CYAN.withAlpha(0.12)} outline outlineColor={Color.CYAN} outlineWidth={2} />
+                      <PolylineGraphics positions={Cartesian3.fromDegreesArrayHeights([site.lng, site.lat, site.elevation, site.lng + 0.008, site.lat + 0.002, site.elevation + 80])} width={5} material={Color.CYAN} />
+                    </>
+                  )}
                 </Entity>
               );
             })}

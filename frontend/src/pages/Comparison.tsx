@@ -3,7 +3,7 @@ import { Award, CheckCircle2 } from 'lucide-react';
 import { Card, SectionHeading, LoadingState, Badge, Button } from '../components/ui';
 import { getComparison } from '../api/simulationApi';
 import { getMaterialById } from '../mock/materials';
-import { ScenarioResult } from '../types';
+import { AnalysisProject, ScenarioResult, Simulation } from '../types';
 import { ShelterVisualization, ShelterGeometry } from '../components/ShelterVisualization';
 import { useAnalysis } from '../hooks/useAnalysisContext';
 import { useNavigate } from 'react-router-dom';
@@ -28,16 +28,33 @@ export default function Comparison() {
 
   const handleSelectDesign = (scenario: ScenarioResult) => {
     setDraft((d) => ({ ...d, design: scenario.design }));
-    if (project) {
-      setProject({ ...project, design: scenario.design });
-    }
-    if (simulation) {
-      setSimulation({
-        ...simulation,
-        id: `sim-${scenario.design.id}-${Date.now().toString().slice(-6)}`,
-        status: 'Completed'
-      });
-    }
+    const nextProject: AnalysisProject = project
+      ? { ...project, design: scenario.design }
+      : {
+          id: `project-${scenario.design.id}`,
+          name: draft.name,
+          createdAt: new Date().toISOString(),
+          climate: draft.climate,
+          requirements: draft.requirements,
+          design: scenario.design,
+          designMode: draft.designMode,
+          status: 'completed',
+        };
+    setProject(nextProject);
+    const nextSimulation: Simulation = {
+      ...(simulation ?? {
+        analysisId: nextProject.id,
+        progress: 100,
+        currentStage: 'Recommendation',
+        stagesCompleted: ['Climate data', 'Design preparation', 'Thermal simulation', 'Optimization', 'Validation', 'Recommendation'],
+        startedAt: new Date().toISOString(),
+        isDemo: true,
+      }),
+      id: `sim-${scenario.design.id}-${Date.now().toString().slice(-6)}`,
+      analysisId: nextProject.id,
+      status: 'Completed',
+    };
+    setSimulation(nextSimulation);
     navigate('/simulation');
   };
 

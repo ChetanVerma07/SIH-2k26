@@ -3,7 +3,7 @@ import { LADAKH_PROFILE } from './climate';
 
 export const BASELINE_DESIGN: ShelterDesign = {
   id: 'design-baseline',
-  label: 'Baseline Design',
+  label: 'Compact Passive Shelter',
   length: 6,
   width: 4,
   height: 2.8,
@@ -21,7 +21,7 @@ export const BASELINE_DESIGN: ShelterDesign = {
 
 export const DESIGN_A: ShelterDesign = {
   id: 'design-a',
-  label: 'Design A',
+  label: 'High-Insulation Shelter',
   length: 6,
   width: 4,
   height: 2.7,
@@ -39,7 +39,7 @@ export const DESIGN_A: ShelterDesign = {
 
 export const DESIGN_B: ShelterDesign = {
   id: 'design-b',
-  label: 'Design B',
+  label: 'Thermal-Mass Shelter',
   length: 5.5,
   width: 4.2,
   height: 2.6,
@@ -53,6 +53,27 @@ export const DESIGN_B: ShelterDesign = {
   roofMaterialId: 'roof-timber-earth',
   floorMaterialId: 'floor-compacted-earth',
   insulationMaterialId: 'insulation-strawbale',
+};
+
+export const SOLAR_OPTIMIZED_DESIGN: ShelterDesign = {
+  id: 'design-solar-optimized', label: 'Solar-Optimized Shelter', length: 6.2, width: 3.8, height: 2.7,
+  wallThickness: 0.32, roofThickness: 0.16, floorThickness: 0.1, insulationThickness: 0.08,
+  openingPercentage: 16, orientation: 'South', wallMaterialId: 'wall-fired-brick', roofMaterialId: 'roof-metal-sheet',
+  floorMaterialId: 'floor-stone-tile', insulationMaterialId: 'insulation-mineral-wool',
+};
+
+export const THERMAL_MASS_DESIGN: ShelterDesign = {
+  id: 'design-thermal-mass-plus', label: 'Thermal-Mass Shelter Plus', length: 5.6, width: 4.4, height: 2.5,
+  wallThickness: 0.5, roofThickness: 0.2, floorThickness: 0.14, insulationThickness: 0.07,
+  openingPercentage: 8, orientation: 'South-East', wallMaterialId: 'wall-stone-masonry', roofMaterialId: 'roof-timber-earth',
+  floorMaterialId: 'floor-compacted-earth', insulationMaterialId: 'insulation-strawbale',
+};
+
+export const HYBRID_PASSIVE_DESIGN: ShelterDesign = {
+  id: 'design-hybrid-passive', label: 'Hybrid Passive Shelter', length: 5.9, width: 4, height: 2.65,
+  wallThickness: 0.38, roofThickness: 0.18, floorThickness: 0.12, insulationThickness: 0.1,
+  openingPercentage: 11, orientation: 'South', wallMaterialId: 'wall-rammed-earth', roofMaterialId: 'roof-timber-earth',
+  floorMaterialId: 'floor-compacted-earth', insulationMaterialId: 'insulation-mineral-wool',
 };
 
 export const RECOMMENDED_DESIGN: ShelterDesign = {
@@ -78,6 +99,9 @@ export const ALL_DESIGNS: ShelterDesign[] = [
   DESIGN_A,
   DESIGN_B,
   RECOMMENDED_DESIGN,
+  SOLAR_OPTIMIZED_DESIGN,
+  THERMAL_MASS_DESIGN,
+  HYBRID_PASSIVE_DESIGN,
 ];
 
 // Deterministic hourly simulation output derived from the Ladakh outdoor
@@ -167,4 +191,20 @@ export const SCENARIO_RESULTS: ScenarioResult[] = [
     overallScore: 91,
     design: RECOMMENDED_DESIGN,
   },
+  ...[
+    [SOLAR_OPTIMIZED_DESIGN, 82, 8.8, 7.9, 5.1, 84],
+    [THERMAL_MASS_DESIGN, 79, 8.1, 6.8, 5.5, 80],
+    [HYBRID_PASSIVE_DESIGN, 84, 7.8, 7.5, 4.8, 86],
+  ].map(([design, comfortPercentage, heatLoss, solarGain, externalEnergyRequirement, overallScore]) => ({
+    designId: (design as ShelterDesign).id,
+    designLabel: (design as ShelterDesign).label,
+    isRecommended: false,
+    isBaseline: false,
+    comfortPercentage: comfortPercentage as number,
+    heatLoss: heatLoss as number,
+    solarGain: solarGain as number,
+    externalEnergyRequirement: externalEnergyRequirement as number,
+    overallScore: overallScore as number,
+    design: design as ShelterDesign,
+  })),
 ];

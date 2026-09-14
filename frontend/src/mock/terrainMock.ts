@@ -69,3 +69,13 @@ export const MOCK_TERRAIN_SITES: TerrainSite[] = [
     description: 'Optimal balance of high solar gain and natural terrain shielding from prevailing winds. Gentle slope ideal for foundation.'
   }
 ];
+
+export const MOCK_THERMAL_ZONES = {
+  cold: [77.55, 34.13, 77.60, 34.13, 77.60, 34.17, 77.55, 34.17],
+  moderate: [77.56, 34.14, 77.59, 34.14, 77.59, 34.16, 77.56, 34.16],
+  warm: [77.575, 34.15, 77.585, 34.15, 77.585, 34.158, 77.575, 34.158],
+};
+
+export const MOCK_LADAKH_BOUNDARY = [
+  77.55, 34.13, 77.60, 34.13, 77.60, 34.17, 77.55, 34.17, 77.55, 34.13,
+];

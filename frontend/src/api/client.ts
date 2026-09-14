@@ -2,8 +2,13 @@
 // Shared HTTP client for the canonical FastAPI backend.
 // ==========================================================================
 
-export const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
-export const USE_MOCK_API = import.meta.env.VITE_USE_MOCK_API === 'true' || import.meta.env.MODE === 'test';
+const configuredBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+
+export const BASE_URL = configuredBaseUrl || '';
+export const USE_MOCK_API =
+  import.meta.env.VITE_USE_MOCK_API === 'true' ||
+  import.meta.env.MODE === 'test' ||
+  (import.meta.env.PROD && !configuredBaseUrl);
 
 export const MOCK_LATENCY_MS = 350;
 

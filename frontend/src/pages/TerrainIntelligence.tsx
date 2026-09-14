@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Viewer, Entity, PolygonGraphics, PointGraphics, LabelGraphics, CameraFlyTo, PolylineGraphics, EllipseGraphics } from 'resium';
 import { Ion, Cartesian3, Color, Terrain } from 'cesium';
 import { ArrowRight, Activity, ThermometerSun, Wind, Mountain, Navigation2 } from 'lucide-react';
@@ -21,6 +21,10 @@ const LADAKH_BOUNDARY = Cartesian3.fromDegreesArray(MOCK_LADAKH_BOUNDARY);
 export default function TerrainIntelligence() {
   const [selectedSite, setSelectedSite] = useState<TerrainSite | null>(
     MOCK_TERRAIN_SITES.find(s => s.isRecommended) || null
+  );
+  const worldTerrain = useMemo(
+    () => Terrain.fromWorldTerrain({ requestVertexNormals: true }),
+    []
   );
   
   const { setDraft } = useAnalysis();
@@ -78,7 +82,8 @@ export default function TerrainIntelligence() {
             homeButton={false}
             navigationHelpButton={false}
             infoBox={false}
-            terrainProvider={Terrain.fromWorldTerrain() as any}
+            showRenderLoopErrors
+            terrain={worldTerrain}
           >
             {/* Fly to Ladakh on load */}
             <CameraFlyTo 

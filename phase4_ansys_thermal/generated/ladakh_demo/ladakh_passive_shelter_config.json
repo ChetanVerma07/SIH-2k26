@@ -1,0 +1,376 @@
+{
+  "name": "ladakh_passive_shelter",
+  "analysis_type": "transient_thermal",
+  "notes": "Illustrative cold high-altitude (Ladakh-like) passive shelter demonstration. Climate values are documented generic approximations, not site-measured data.",
+  "geometry": {
+    "length": 6.0,
+    "width": 4.0,
+    "height": 2.8,
+    "wall_thickness": 0.45,
+    "roof_thickness": 0.3,
+    "floor_thickness": 0.2,
+    "window_area": 2.5,
+    "door_area": 1.8,
+    "other_openings_area": 0.0,
+    "orientation_deg": 180.0,
+    "shape": "rectangular",
+    "derived": {
+      "floor_area_m2": 24.0,
+      "roof_area_m2": 24.0,
+      "wall_gross_area_m2": 56.0,
+      "wall_net_area_m2": 51.7,
+      "total_opening_area_m2": 4.3,
+      "internal_volume_m3": 67.2
+    }
+  },
+  "materials": {
+    "wall_material": {
+      "name": "Rammed Earth",
+      "thermal_conductivity_w_mk": 1.1,
+      "density_kg_m3": 2000.0,
+      "specific_heat_j_kgk": 900.0,
+      "emissivity": 0.9,
+      "solar_absorptivity": 0.65,
+      "derived": {
+        "thermal_diffusivity_m2_s": 6.111111111111112e-07
+      }
+    },
+    "roof_material": {
+      "name": "Dense Concrete",
+      "thermal_conductivity_w_mk": 1.75,
+      "density_kg_m3": 2400.0,
+      "specific_heat_j_kgk": 880.0,
+      "emissivity": 0.9,
+      "solar_absorptivity": 0.6,
+      "derived": {
+        "thermal_diffusivity_m2_s": 8.285984848484849e-07
+      }
+    },
+    "floor_material": {
+      "name": "Dense Concrete",
+      "thermal_conductivity_w_mk": 1.75,
+      "density_kg_m3": 2400.0,
+      "specific_heat_j_kgk": 880.0,
+      "emissivity": 0.9,
+      "solar_absorptivity": 0.6,
+      "derived": {
+        "thermal_diffusivity_m2_s": 8.285984848484849e-07
+      }
+    },
+    "window_material": {
+      "name": "Double Pane Glass (air gap)",
+      "thermal_conductivity_w_mk": 0.7,
+      "density_kg_m3": 2500.0,
+      "specific_heat_j_kgk": 840.0,
+      "emissivity": 0.84,
+      "solar_absorptivity": 0.05,
+      "derived": {
+        "thermal_diffusivity_m2_s": 3.333333333333333e-07
+      }
+    }
+  },
+  "boundary_conditions": {
+    "ambient_series": [
+      {
+        "hour": 0.0,
+        "ambient_temp_c": -13.6603,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 1.0,
+        "ambient_temp_c": -14.6593,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 2.0,
+        "ambient_temp_c": -15.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 3.0,
+        "ambient_temp_c": -14.6593,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 4.0,
+        "ambient_temp_c": -13.6603,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 5.0,
+        "ambient_temp_c": -12.0711,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 6.0,
+        "ambient_temp_c": -10.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 7.0,
+        "ambient_temp_c": -7.5882,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 8.0,
+        "ambient_temp_c": -5.0,
+        "solar_irradiance_w_m2": 278.12,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 9.0,
+        "ambient_temp_c": -2.4118,
+        "solar_irradiance_w_m2": 529.01,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 10.0,
+        "ambient_temp_c": 0.0,
+        "solar_irradiance_w_m2": 728.12,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 11.0,
+        "ambient_temp_c": 2.0711,
+        "solar_irradiance_w_m2": 855.95,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 12.0,
+        "ambient_temp_c": 3.6603,
+        "solar_irradiance_w_m2": 900.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 13.0,
+        "ambient_temp_c": 4.6593,
+        "solar_irradiance_w_m2": 855.95,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 14.0,
+        "ambient_temp_c": 5.0,
+        "solar_irradiance_w_m2": 728.12,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 15.0,
+        "ambient_temp_c": 4.6593,
+        "solar_irradiance_w_m2": 529.01,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 16.0,
+        "ambient_temp_c": 3.6603,
+        "solar_irradiance_w_m2": 278.12,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 17.0,
+        "ambient_temp_c": 2.0711,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 18.0,
+        "ambient_temp_c": 0.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 19.0,
+        "ambient_temp_c": -2.4118,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 20.0,
+        "ambient_temp_c": -5.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 21.0,
+        "ambient_temp_c": -7.5882,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 22.0,
+        "ambient_temp_c": -10.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 23.0,
+        "ambient_temp_c": -12.0711,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 24.0,
+        "ambient_temp_c": -13.6603,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 25.0,
+        "ambient_temp_c": -14.6593,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 26.0,
+        "ambient_temp_c": -15.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 27.0,
+        "ambient_temp_c": -14.6593,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 28.0,
+        "ambient_temp_c": -13.6603,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 29.0,
+        "ambient_temp_c": -12.0711,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 30.0,
+        "ambient_temp_c": -10.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 31.0,
+        "ambient_temp_c": -7.5882,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 32.0,
+        "ambient_temp_c": -5.0,
+        "solar_irradiance_w_m2": 278.12,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 33.0,
+        "ambient_temp_c": -2.4118,
+        "solar_irradiance_w_m2": 529.01,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 34.0,
+        "ambient_temp_c": 0.0,
+        "solar_irradiance_w_m2": 728.12,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 35.0,
+        "ambient_temp_c": 2.0711,
+        "solar_irradiance_w_m2": 855.95,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 36.0,
+        "ambient_temp_c": 3.6603,
+        "solar_irradiance_w_m2": 900.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 37.0,
+        "ambient_temp_c": 4.6593,
+        "solar_irradiance_w_m2": 855.95,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 38.0,
+        "ambient_temp_c": 5.0,
+        "solar_irradiance_w_m2": 728.12,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 39.0,
+        "ambient_temp_c": 4.6593,
+        "solar_irradiance_w_m2": 529.01,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 40.0,
+        "ambient_temp_c": 3.6603,
+        "solar_irradiance_w_m2": 278.12,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 41.0,
+        "ambient_temp_c": 2.0711,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 42.0,
+        "ambient_temp_c": 0.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 43.0,
+        "ambient_temp_c": -2.4118,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 44.0,
+        "ambient_temp_c": -5.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 45.0,
+        "ambient_temp_c": -7.5882,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 46.0,
+        "ambient_temp_c": -10.0,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 47.0,
+        "ambient_temp_c": -12.0711,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      },
+      {
+        "hour": 48.0,
+        "ambient_temp_c": -13.6603,
+        "solar_irradiance_w_m2": 0.0,
+        "wind_speed_m_s": null
+      }
+    ],
+    "indoor_initial_temp_c": 10.0,
+    "internal_convection_w_m2k": 8.0,
+    "external_convection_w_m2k": 25.0,
+    "ground_temp_c": 2.0,
+    "time_step_s": 3600.0,
+    "duration_hours": 48.0
+  }
+}

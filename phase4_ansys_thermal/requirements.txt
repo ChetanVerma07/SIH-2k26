@@ -1,0 +1,8 @@
+# Core dependencies (required for mock mode / all tests)
+matplotlib>=3.7
+pytest>=7.4
+
+# Optional dependency: only required if you want to use
+# AnsysThermalAdapter's real-execution path (PyMAPDL). Not required
+# for mock mode, tests, or input-file generation.
+# ansys-mapdl-core>=0.68

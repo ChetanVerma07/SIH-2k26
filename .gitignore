@@ -1,0 +1,15 @@
+node_modules/
+.env
+dist/
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+build/
+*.log
+coverage/
+.coverage
+*.tsbuildinfo
+.DS_Store

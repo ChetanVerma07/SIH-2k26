@@ -1,0 +1,225 @@
+{
+  "climate": [
+    {
+      "time": 0,
+      "ambient_temperature": -12.0,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 1,
+      "ambient_temperature": -13.0,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 2,
+      "ambient_temperature": -13.7,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 3,
+      "ambient_temperature": -14.0,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 4,
+      "ambient_temperature": -13.7,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 5,
+      "ambient_temperature": -13.0,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 6,
+      "ambient_temperature": -12,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 7,
+      "ambient_temperature": -10.2,
+      "solar_radiation": 0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 8,
+      "ambient_temperature": -8.5,
+      "solar_radiation": 211.3,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 9,
+      "ambient_temperature": -7.0,
+      "solar_radiation": 405.5,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 10,
+      "ambient_temperature": -5.7,
+      "solar_radiation": 566.8,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 11,
+      "ambient_temperature": -4.8,
+      "solar_radiation": 682.2,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 12,
+      "ambient_temperature": -4.2,
+      "solar_radiation": 742.4,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 13,
+      "ambient_temperature": -4.0,
+      "solar_radiation": 742.4,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 14,
+      "ambient_temperature": -4.2,
+      "solar_radiation": 682.2,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 15,
+      "ambient_temperature": -4.8,
+      "solar_radiation": 566.8,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 16,
+      "ambient_temperature": -5.7,
+      "solar_radiation": 405.5,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 17,
+      "ambient_temperature": -7.0,
+      "solar_radiation": 211.3,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 18,
+      "ambient_temperature": -8.5,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 19,
+      "ambient_temperature": -10.2,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 20,
+      "ambient_temperature": -12.0,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 21,
+      "ambient_temperature": -10.0,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 22,
+      "ambient_temperature": -10.3,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 23,
+      "ambient_temperature": -11.0,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    },
+    {
+      "time": 24,
+      "ambient_temperature": -12.0,
+      "solar_radiation": 0.0,
+      "ground_temperature": -8.0
+    }
+  ],
+  "shelter": {
+    "name": "Ladakh Trombe-Wall Adobe Shelter",
+    "length": 6.0,
+    "width": 4.0,
+    "height": 2.7,
+    "orientation": "S",
+    "wall_material": [
+      {
+        "name": "Rammed Earth (structural)",
+        "thermal_conductivity": 0.7,
+        "density": 2000,
+        "specific_heat": 800,
+        "thickness": 0.4,
+        "solar_absorptivity": 0.7,
+        "emissivity": 0.9
+      },
+      {
+        "name": "Straw Bale (insulation layer)",
+        "thermal_conductivity": 0.07,
+        "density": 110,
+        "specific_heat": 1500,
+        "thickness": 0.15,
+        "solar_absorptivity": 0.5,
+        "emissivity": 0.85
+      }
+    ],
+    "roof_material": [
+      {
+        "name": "Timber Deck",
+        "thermal_conductivity": 0.14,
+        "density": 500,
+        "specific_heat": 1600,
+        "thickness": 0.05,
+        "solar_absorptivity": 0.6,
+        "emissivity": 0.9
+      },
+      {
+        "name": "EPS Insulation",
+        "thermal_conductivity": 0.035,
+        "density": 30,
+        "specific_heat": 1450,
+        "thickness": 0.1,
+        "solar_absorptivity": 0.4,
+        "emissivity": 0.9
+      }
+    ],
+    "floor_material": {
+      "name": "Dense Concrete Slab",
+      "thermal_conductivity": 1.4,
+      "density": 2300,
+      "specific_heat": 880,
+      "thickness": 0.15,
+      "solar_absorptivity": 0.6,
+      "emissivity": 0.9
+    },
+    "openings": {
+      "window_area": 4.0,
+      "door_area": 2.0,
+      "other_opening_area": 0.5,
+      "opening_u_value": 2.8,
+      "window_shgc": 0.65
+    },
+    "structural_mass_fraction": 0.35
+  },
+  "settings": {
+    "duration_hours": 24,
+    "time_step_minutes": 30,
+    "initial_indoor_temperature": 10.0,
+    "comfort_min": 15.0,
+    "comfort_max": 24.0
+  }
+}

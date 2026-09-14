@@ -1,0 +1,43 @@
+SIMULATION CONFIGURATION SUMMARY
+=================================
+Name            : ladakh_passive_shelter
+Analysis type   : transient_thermal
+Notes           : Illustrative cold high-altitude (Ladakh-like) passive shelter demonstration. Climate values are documented generic approximations, not site-measured data.
+
+GEOMETRY (rectangular shelter)
+-------------------------------
+  Length x Width x Height : 6.0 m x 4.0 m x 2.8 m
+  Wall thickness          : 0.45 m
+  Roof thickness          : 0.3 m
+  Floor thickness         : 0.2 m
+  Window area             : 2.5 m^2
+  Door area               : 1.8 m^2
+  Other openings area     : 0.0 m^2
+  Orientation             : 180.0 deg from North
+  Floor area (derived)    : 24.00 m^2
+  Internal volume(derived): 67.20 m^3
+  Net wall area (derived) : 51.70 m^2
+
+MATERIALS
+---------
+  Wall   : Rammed Earth  (k=1.1 W/m.K, rho=2000.0 kg/m3, cp=900.0 J/kg.K)
+  Roof   : Dense Concrete  (k=1.75 W/m.K)
+  Floor  : Dense Concrete  (k=1.75 W/m.K)
+  Window : Double Pane Glass (air gap)  (k=0.7 W/m.K)
+
+BOUNDARY CONDITIONS
+--------------------
+  Indoor initial temperature : 10.0 degC
+  Internal convection coeff. : 8.0 W/m2.K
+  External convection coeff. : 25.0 W/m2.K
+  Ground temperature         : 2.0 degC
+  Time step                  : 3600.0 s
+  Duration                   : 48.0 hours
+  Ambient series points      : 49
+  Ambient temp range         : -15.0 to 5.0 degC
+  Peak solar irradiance      : 900.0 W/m^2
+
+This summary was generated automatically from the JSON
+configuration file of the same simulation name. It is intended
+to let an engineer quickly review a setup before running it,
+either via the mock adapter or in an actual ANSYS installation.

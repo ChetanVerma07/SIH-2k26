@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Info } from 'lucide-react';
+import { Info, Map } from 'lucide-react';
 import {
   Card,
   Field,
@@ -146,6 +146,18 @@ export default function NewAnalysis() {
               ))}
             </Select>
           </Field>
+        </div>
+        <div className="mt-4 pt-4 border-t border-slate-100">
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={() => navigate('/terrain')}
+            className="gap-2"
+          >
+            <Map size={16} />
+            Preview Location on 3D Terrain
+          </Button>
+          <p className="text-xs text-slate-400 mt-1.5">View the selected coordinates on an interactive 3D terrain map with AI site analysis.</p>
         </div>
       </Card>
 

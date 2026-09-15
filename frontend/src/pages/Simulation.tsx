@@ -1,16 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle2, CircleDashed, LoaderCircle, XCircle } from 'lucide-react';
+import { CheckCircle2, CircleDashed, LoaderCircle, XCircle, Award, ArrowRight, LayoutGrid } from 'lucide-react';
 import { Card, ProgressBar, Badge, Button, SectionHeading, EmptyState } from '../components/ui';
 import { useAnalysis } from '../hooks/useAnalysisContext';
 import { getSimulationStatus, SIMULATION_STAGES, runSimulation } from '../api/simulationApi';
-import { ShelterVisualization } from '../components/ShelterVisualization';
+import { ShelterVisualization, ShelterGeometry } from '../components/ShelterVisualization';
+import { getComparison } from '../api/simulationApi';
+import { ScenarioResult } from '../types';
+import { getMaterialById } from '../mock/materials';
 
 export default function SimulationPage() {
   const navigate = useNavigate();
-  const { project, simulation, setSimulation } = useAnalysis();
+  const { project, simulation, setSimulation, draft, setDraft, setProject } = useAnalysis();
   const [failed, setFailed] = useState(false);
   const runningRef = useRef(false);
+  const [aiDesigns, setAiDesigns] = useState<ScenarioResult[] | null>(null);
 
   useEffect(() => {
     if (!simulation || simulation.status === 'Completed' || simulation.status === 'Failed') return;
@@ -44,6 +48,21 @@ export default function SimulationPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [simulation?.id]);
 
+  // Load AI designs when simulation completes
+  useEffect(() => {
+    if (simulation?.status === 'Completed') {
+      getComparison('demo').then((scenarios) => {
+        // Get top 3 designs sorted by score, with recommended first
+        const sorted = [...scenarios].sort((a, b) => {
+          if (a.isRecommended && !b.isRecommended) return -1;
+          if (!a.isRecommended && b.isRecommended) return 1;
+          return b.overallScore - a.overallScore;
+        });
+        setAiDesigns(sorted.slice(0, 3));
+      });
+    }
+  }, [simulation?.status]);
+
   if (!project || !simulation) {
     return (
       <div className="space-y-6">
@@ -61,8 +80,36 @@ export default function SimulationPage() {
 
   const currentIndex = SIMULATION_STAGES.indexOf(simulation.currentStage);
 
+  const mapDesignToGeometry = (design: any): ShelterGeometry => ({
+    lengthM: design.length,
+    widthM: design.width,
+    heightM: design.height,
+    wallThicknessM: design.wallThickness,
+    roofType: design.roofMaterialId.includes('timber') ? 'pitched' : 'flat',
+    orientation: design.orientation.replace(/outh|orth|ast|est|-/g, ''),
+    windowAreaM2: (design.length * design.height * design.openingPercentage) / 100,
+    doorAreaM2: 2,
+  });
+
+  const handleSelectDesign = (scenario: ScenarioResult) => {
+    setDraft((d) => ({ ...d, design: scenario.design }));
+    const nextProject = project
+      ? { ...project, design: scenario.design }
+      : {
+          id: `project-${scenario.design.id}`,
+          name: draft.name,
+          createdAt: new Date().toISOString(),
+          climate: draft.climate,
+          requirements: draft.requirements,
+          design: scenario.design,
+          designMode: draft.designMode,
+          status: 'completed' as const,
+        };
+    setProject(nextProject);
+  };
+
   return (
-    <div className="space-y-6 max-w-3xl">
+    <div className="space-y-6">
       <SectionHeading title="Simulation" description="Track the status of your thermal simulation run." />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -112,9 +159,6 @@ export default function SimulationPage() {
           </p>
 
           <div className="mt-6 flex gap-3">
-            {simulation.status === 'Completed' && (
-              <Button onClick={() => navigate('/results')}>View Results</Button>
-            )}
             {simulation.status === 'Failed' && (
               <Button
                 variant="secondary"
@@ -166,6 +210,108 @@ export default function SimulationPage() {
             <XCircle size={18} /> Simulation failed. This can happen with invalid geometry or missing climate data.
           </div>
         </Card>
+      )}
+
+      {/* AI Best Pick Designs — shown after simulation completes */}
+      {simulation.status === 'Completed' && aiDesigns && aiDesigns.length > 0 && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <Award size={20} className="text-emerald-500" />
+            <h3 className="text-base font-semibold text-slate-800">AI Best Pick — Recommended Designs</h3>
+            <Badge tone="green">Top 3</Badge>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-5">
+            {aiDesigns.map((s) => {
+              const wall = getMaterialById(s.design.wallMaterialId);
+              const insulation = getMaterialById(s.design.insulationMaterialId);
+              const isSelected = draft.design.id === s.design.id || project?.design.id === s.design.id;
+
+              return (
+                <Card
+                  key={s.designId}
+                  className={`transition-all duration-300 relative overflow-hidden ${
+                    isSelected ? 'ring-2 ring-brand-500 shadow-md' : 'hover:border-brand-300'
+                  }`}
+                >
+                  {s.isRecommended && (
+                    <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider rounded-bl-lg z-20 flex items-center gap-1">
+                      <Award size={12} /> AI Best Pick
+                    </div>
+                  )}
+                  {isSelected && (
+                    <div className="absolute top-0 left-0 bg-brand-500 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider rounded-br-lg z-20 flex items-center gap-1">
+                      <CheckCircle2 size={12} /> Selected
+                    </div>
+                  )}
+
+                  {/* 3D Preview */}
+                  <div className="h-48 relative rounded-lg overflow-hidden bg-slate-950/80 mb-3 -mx-5 -mt-5">
+                    <ShelterVisualization
+                      geometry={mapDesignToGeometry(s.design)}
+                      isSimulating={false}
+                    />
+                  </div>
+
+                  {/* Info */}
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-800 mb-1">{s.designLabel}</h4>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge tone={s.overallScore > 80 ? 'green' : s.overallScore > 60 ? 'amber' : 'slate'}>
+                        {s.overallScore}% Score
+                      </Badge>
+                      <Badge tone="blue">{s.design.orientation}</Badge>
+                    </div>
+
+                    <div className="space-y-1.5 text-xs">
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Dimensions</span>
+                        <span className="font-medium text-slate-700">{s.design.length}m × {s.design.width}m</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Comfort</span>
+                        <span className="font-medium text-emerald-600">{s.comfortPercentage}%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Heat Loss</span>
+                        <span className="font-medium text-red-500">{s.heatLoss} kWh</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-slate-100">
+                    <Button
+                      variant={isSelected ? 'secondary' : 'primary'}
+                      className="w-full text-xs"
+                      onClick={() => handleSelectDesign(s)}
+                    >
+                      {isSelected ? 'Currently Selected' : 'Select This Design'}
+                    </Button>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+
+          {/* Action buttons row */}
+          <div className="flex items-center gap-3 pt-2">
+            <Button
+              variant="secondary"
+              onClick={() => navigate('/designs')}
+              className="gap-2"
+            >
+              <LayoutGrid size={16} />
+              Choose from Another Design
+            </Button>
+            <Button
+              onClick={() => navigate('/results')}
+              className="gap-2"
+            >
+              View Result
+              <ArrowRight size={16} />
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );

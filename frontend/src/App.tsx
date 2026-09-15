@@ -11,6 +11,7 @@ import Recommendation from './pages/Recommendation';
 import Materials from './pages/Materials';
 import TerrainIntelligence from './pages/TerrainIntelligence';
 import ReportPage from './pages/Report';
+import ProfilePage from './pages/ProfilePage';
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/materials" element={<Materials />} />
         <Route path="/report" element={<ReportPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </MainLayout>
   );
